@@ -26,16 +26,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
        - uses: actions/checkout@3
 
-      -  runs-on: ubuntu-latest
-         steps:
-      - uses: actions/checkout@v1
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.MIRA_TOKEN }} | docker login -u ${{ secrets.MIRA_NAME }} --password-stdin
+       - run: ubuntu-latest
+       - uses: actions/checkout@v1
+       - name: Login to DockerHub Registry
+         run: echo ${{ secrets.MIRA_TOKEN }} | docker login -u ${{ secrets.MIRA_NAME }} --password-stdin
 
-      - name: Build business-layer container
-      - uses: docker/build-push-action@v2
-      - name: push service
-        run: |
-         docker push mirasaie/homework
-         push: true
-         tags: ${{ secrets.MIRA_NAME }}/homework:latest
+       - name: Build business-layer container
+       - uses: docker/build-push-action@v2
+       - name: push service
+         run: |
+          docker push mirasaie/homework
+          push: true
+          tags: ${{ secrets.MIRA_NAME }}/homework:latest
