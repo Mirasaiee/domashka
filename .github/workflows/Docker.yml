@@ -38,5 +38,5 @@ jobs:
 - name: push service
   run: |
     docker push mirasaie/homework
-	                   
-
+     push: true
+          tags: ${{ secrets.MIRA_NAME }}/homework:latest
