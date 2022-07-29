@@ -26,11 +26,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@3
 
-      - name: Login to Docker Hub
-	  uses: docker/login-action@1
-	  with:
-  	    username: ${{ secrets.MIRA_NAME }}
-  	    password: ${{ secrets.MIRA_TOKEN }}
+      -  runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.MIRA_TOKEN }} | docker login -u ${{ secrets.MIRA_NAME }} --password-stdin
 
 	- name: Set up Docker Buildx
   	  uses: docker/setup-buildx-action@1
