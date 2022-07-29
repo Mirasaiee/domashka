@@ -1,0 +1,28 @@
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@3
+
+      - name: Login to Docker Hub
+	  uses: docker/login-action@1
+	  with:
+  	    username: ${{ secrets.MIRA_NAME }}
+  	    password: ${{ secrets.MIRA_TOKEN }}
+
+	- name: Set up Docker Buildx
+  	  uses: docker/setup-buildx-action@1
+
+	- name: Build and push
+ 	  uses: docker/build-push-action@V2
+	  with:
+          context: .
+   	    file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.MIRA_NAME }}/homework:latest
