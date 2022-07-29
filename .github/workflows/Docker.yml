@@ -33,7 +33,24 @@ jobs:
         run: echo ${{ secrets.MIRA_TOKEN }} | docker login -u ${{ secrets.MIRA_NAME }} --password-stdin
 
 	- name: Build business-layer container
-  	  uses: docker/build-push-action@v2
+  uses: docker/build-push-action@v2
+  with:
+    load: true
+    tags: my-project/base
+    context: business
+    file: business/Dockerfile
+
+- name: Build service
+  uses: docker/build-push-action@v2
+  with:
+    load: true
+    tags: my-ecr-repo/service
+    context: service
+    file: service/Dockerfile
+
+- name: push service
+  run: |
+    docker push my-ecr-repo/service
 
 	- name: Build and push
  	  uses: docker/build-push-action@V2
