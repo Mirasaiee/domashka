@@ -27,11 +27,11 @@ jobs:
       - uses: actions/checkout@3
 
       - name: Login to Docker Hub
-	  runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v1
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.MIRA_PASSWORD }} | docker login -u ${{ secrets.MIRA_NAME }} --password-stdin
+	  uses: docker/login-action@1
+	  with:
+	  
+  	    username: ${{ secrets.MIRA_NAME }}
+  	    password: ${{ secrets.MIRA_TOKEN }}
 
 	- name: Set up Docker Buildx
   	  uses: docker/setup-buildx-action@1
@@ -42,4 +42,4 @@ jobs:
           context: .
    	    file: ./Dockerfile
           push: true
-          tags: ${{ secrets.MIRA_NAME }}/homework:latest
+          tags: ${{ secrets.MIRA_NAME }}/homework:latest     
