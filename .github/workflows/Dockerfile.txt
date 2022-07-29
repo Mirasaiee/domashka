@@ -1,0 +1,5 @@
+FROM python:bullseye
+COPY requirements.txt ./
+COPY hmwrk.ipynb ./
+RUN pip install -r requirements.txt
+RUN jupyter-nbconvert --execute hmwrk.ipynb --to html
